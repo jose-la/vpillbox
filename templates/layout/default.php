@@ -48,18 +48,18 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="top-nav-links">
             <?php
                 // var_dump($_SESSION);
-                // if ($this->Identity->isLoggedIn())
-                // {
-                //     echo $this->Html->link(__('Usuarios'), ['controller' => 'Users'], ['action' => 'index']);
-                //     echo $this->Html->link(__('Fármacos'), ['controller' => 'Pastillas'], ['action' => 'index']);
-                // }
+                if ($this->Identity->isLoggedIn())
+                {
+                    echo $this->Html->link(__('Usuarios'), ['controller' => 'Users'], ['action' => 'index']);
+                    echo $this->Html->link(__('Fármacos'), ['controller' => 'Pastillas'], ['action' => 'index']);
+                }
                 
                 // if (isset($user['role']) && $user['role'] === 'medico') {
                 //     return true;
                 // }
                 
-                echo $this->Html->link(__('Usuarios'), ['controller' => 'Users'], ['action' => 'index']);
-                echo $this->Html->link(__('Fármacos'), ['controller' => 'Pastillas'], ['action' => 'index']);
+                // echo $this->Html->link(__('Usuarios'), ['controller' => 'Users'], ['action' => 'index']);
+                // echo $this->Html->link(__('Fármacos'), ['controller' => 'Pastillas'], ['action' => 'index']);
             ?>
             <!-- <a rel="noopener" href="../Users">Usuarios</a> -->
             <!-- <a rel="noopener" href="../Pastillas">Fármacos</a> -->

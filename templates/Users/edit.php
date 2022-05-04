@@ -32,6 +32,7 @@
                         'usuario' => 'Usuario',
                         'medico' => 'Medico',
                     ]);
+                    
                     echo "-----------------------------------------------------------------------------------------------------------";
                     echo $this->Form->create($document, ['enctype' => 'multipart/form-data']);
                     echo $this->Form->file('submittedfile');
@@ -48,8 +49,11 @@
                     // Existing files with the same name will be replaced.
                     $fileobject->moveTo($destination);
 
+
+
                     /* echo "<label>Imagen</label>";
                     echo $this->Form->file('imagen'); */
+
                     /* {{ asset('\img\usuarios\' . $user->imagen) }} */
                 ?>
             </fieldset>

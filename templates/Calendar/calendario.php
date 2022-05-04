@@ -14,7 +14,7 @@ echo $this->Html->script('calendario');
     </head>
     <body>
         <?= $this->Html->link(__('Log Out'), ['action' => 'logout'], ['class' => 'button float-right']) ?>
-        <h3>hola <strong><?= $this->Identity->get('nombre'); ?> <?= $this->Identity->get('apellidos'); ?></strong></h3>
+        <h3>Bienvenid@ <strong><?= $this->Identity->get('nombre'); ?> <?= $this->Identity->get('apellidos'); ?></strong></h3>
         <div id="containerAgregarFarmaco">
             <form>
                 <div id="parteArribaFormulario">
