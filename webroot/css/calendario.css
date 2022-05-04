@@ -1,0 +1,44 @@
+.containerCalendario {
+    /* width: 85%; */
+    margin-bottom : 20px;
+    margin-right: 20px;
+    /* position: fixed; */
+}
+body {
+    background-color: #F5F7FA;
+}
+#divFarmaco {
+    width: 50%;
+    display: inline-block;
+    height: 100%;
+}
+#divTiempo {
+    width: 49%;
+    display: inline-block;
+    height: 100%;
+}
+div#principal {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 0.4rem;
+    box-shadow: 0 7px 14px 0 rgb(60 66 87 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%);
+    margin-bottom: 40px;
+    padding-right: 1px;
+}
+div#containerAgregarFarmaco {
+    background: #ffffff;
+    padding: 2rem;
+    display:none;
+    width: 85%;
+    height: auto;
+    position: sticky;
+    border-radius: 0.4rem;
+    box-shadow: 0 7px 14px 0 rgb(60 66 87 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%);
+    margin-bottom: 30px;
+}
+.botonAgregarFarmaco, .cerrarContainer {
+    display: inline-block;
+}
+.cerrarContainer {
+    float: right;
+}
