@@ -32,29 +32,32 @@
                         'usuario' => 'Usuario',
                         'medico' => 'Medico',
                     ]);
+
+                    echo "<label>Imagen</label>";
+                    echo $this->Form->file('imagen');
+
+                    // $uploadPath ='/img/usuarios/';
+                    // $files = scandir($uploadPath, 0);
+
                     
-                    echo "-----------------------------------------------------------------------------------------------------------";
-                    echo $this->Form->create($document, ['enctype' => 'multipart/form-data']);
-                    echo $this->Form->file('submittedfile');
+                    // echo "-----------------------------------------------------------------------------------------------------------";
+                    // echo $this->Form->create($document, ['enctype' => 'multipart/form-data']);
+                    // echo $this->Form->file('submittedfile');
 
-                    function beforeMarshal(\Cake\Event\EventInterface $event, \ArrayObject $data, \ArrayObject $options)
-                    {
-                        if ($data['submittedfile'] === '') {
-                            unset($data['submittedfile']);
-                        }
-                    }
-                    $fileobject = $this->request->getData('submittedfile');
-                    $destination = UPLOAD_DIRECTORY . $fileobject->getClientFilename();
+                    // function beforeMarshal(\Cake\Event\EventInterface $event, \ArrayObject $data, \ArrayObject $options)
+                    // {
+                    //     if ($data['submittedfile'] === '') {
+                    //         unset($data['submittedfile']);
+                    //     }
+                    // }
+                    // $fileobject = $this->request->getData('submittedfile');
+                    // $destination = UPLOAD_DIRECTORY . $fileobject->getClientFilename();
 
-                    // Existing files with the same name will be replaced.
-                    $fileobject->moveTo($destination);
+                    // // Existing files with the same name will be replaced.
+                    // $fileobject->moveTo($destination);
 
 
-
-                    /* echo "<label>Imagen</label>";
-                    echo $this->Form->file('imagen'); */
-
-                    /* {{ asset('\img\usuarios\' . $user->imagen) }} */
+                    
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Editar')) ?>

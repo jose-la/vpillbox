@@ -20,9 +20,18 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $users = $this->paginate($this->Users);
-        // $user = Auth::user();
-        $this->set(compact('users'));
+        $session = $this->request->getSession();
+        if ($session->read('Auth.role') !== 'medico') {  
+            $redirect = $this->request->getQuery('redirect', [
+                'controller' => 'Calendar',
+                'action' => 'index',
+            ]);
+            return $this->redirect($redirect);
+        }else{
+            $users = $this->paginate($this->Users);
+            // $user = Auth::user();
+            $this->set(compact('users'));
+        }
     }
 
     /**
@@ -51,10 +60,6 @@ class UsersController extends AppController
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-
-            //linea añadida
-            // $user->role = $this->Auth->user('role');
-            
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Usuario creado.'));
 
@@ -74,22 +79,114 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
-        // if ($this->request->data['role'] = 'medico') {
-            $user = $this->Users->get($id, [
-                'contain' => [],
-            ]);
-            if ($this->request->is(['patch', 'post', 'put'])) {
-                $user = $this->Users->patchEntity($user, $this->request->getData());
-                if ($this->Users->save($user)) {
-                    $this->Flash->success(__('Usuario editado.'));
+        $user = $this->Users->get($id, [
+            'contain' => [],
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
 
-                    return $this->redirect(['action' => 'index']);
+            
+            // Check if image file is a actual image or fake image
+            /* $check = getimagesize($this->request->getData('imagen'));
+            echo $check;
+            if($check !== false) {
+                echo "File is an image - " . $check["mime"] . ".";
+                $uploadOk = 1;
+            } else {
+                echo "File is not an image.";
+                $uploadOk = 0;
+            } */
+
+            // Check if file already exists
+            /* if (file_exists($target_file)) {
+                echo "Sorry, file already exists.";
+                $uploadOk = 0;
+            } */
+            
+            // Check file size
+            /* if ($this->request->getData('imagen')["size"] > 1000000) {
+                echo "Sorry, your file is too large.";
+                $uploadOk = 0;
+            } */
+            
+            // Allow certain file formats
+            /* if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                echo "Sorry, only JPG, JPEG & PNG files are allowed.";
+                $uploadOk = 0;
+            } */
+
+            // Check if $uploadOk is set to 0 by an error
+            /* if ($uploadOk == 0) {
+                echo "Sorry, your file was not uploaded.";
+            // if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($this->request->getData('imagen'), $target_file)) {
+                    echo "The file ". htmlspecialchars( basename( $this->request->getData('imagen'))). " has been uploaded.";
+                } else {
+                    echo "Sorry, there was an error uploading your file.";
                 }
-                $this->Flash->error(__('El usuario no se ha podido editar. Inténtelo más tarde, por favor.'));
+            } */
+
+
+            $target_dir = "/img/usuarios/";
+            $target_file = $target_dir . basename($this->request->getData('imagen'));
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+            echo $target_file . "<br>";
+            echo $imageFileType . "<br>";
+
+            // echo "-----------------------------------------------------------------------------------------------------------";
+            // echo $this->Form->create($document, ['enctype' => 'multipart/form-data']);
+            // echo $this->Form->file('submittedfile');
+
+            // function beforeMarshal(\Cake\Event\EventInterface $event, \ArrayObject $data, \ArrayObject $options)
+            // {
+            //     if ($data['submittedfile'] === '') {
+            //         unset($data['submittedfile']);
+            //     }
+            // }
+            // $fileobject = $this->request->getData('submittedfile');
+            // $destination = UPLOAD_DIRECTORY . $fileobject->getClientFilename();
+
+            // // Existing files with the same name will be replaced.
+            // $fileobject->moveTo($destination);
+
+            
+            // if ($this->request->is('post')) {
+            //     $fileobject = $this->request->getData('imagen');
+            //     $uploadPath = '../uploads/';
+            //     $destination = $uploadPath.$fileobject->getClientFilename();
+            //     // Existing files with the same name will be replaced.
+            //     $fileobject->moveTo($destination);
+            // }
+
+
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Usuario editado.'));
+
+                // return $this->redirect(['action' => 'index']);
             }
-            $this->set(compact('user'));
-        // }
+            $this->Flash->error(__('El usuario no se ha podido editar. Inténtelo más tarde, por favor.'));
+        }
+        $this->set(compact('user'));
     }
+
+    /* public function edit($id = null)
+    {
+        $user = $this->Users->get($id, [
+            'contain' => [],
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Usuario editado.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('El usuario no se ha podido editar. Inténtelo más tarde, por favor.'));
+        }
+        $this->set(compact('user'));
+    } */
 
     /**
      * Delete method
@@ -119,17 +216,38 @@ class UsersController extends AppController
         if ($result->isValid()) {
             // redirect to /articles after login success
             $redirect = $this->request->getQuery('redirect', [
-                'controller' => 'Calendar',
-                'action' => 'index',
+                'controller' => 'Users',
+                'action' => 'pacientes',
             ]);
-            // var_dump($this->Auth->user('id'));
-            // pr($this->Session->read('Auth.User.id'));
             return $this->redirect($redirect);
+            // HACER EXCEPCION SI NO ES MEDICO
         }
+
+        /* if ($result->isValid()) {
+            $session = $this->request->getSession();
+            if ($session->read('Auth.role') === 'medico') {  
+                $redirect = $this->request->getQuery('redirect', [
+                    'controller' => 'Users',
+                    'action' => 'pacientes',
+                ]);
+            }
+            elseif ($session->read('Auth.role') !== 'medico') {  
+                $redirect = $this->request->getQuery('redirect', [
+                    'controller' => 'Calendar',
+                    'action' => 'index',
+                ]);
+            }
+            return $this->redirect($redirect);
+        } */
+
         // display error if user submitted and authentication failed
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error(__('Usuario o contraseña inválida'));
         }
+    }
+
+    public function pacientes() {
+        echo "ESTO ES LA VIEW DE LOS PACIENTES.";
     }
 
     public function logout()
@@ -150,15 +268,67 @@ class UsersController extends AppController
         $this->Authentication->addUnauthenticatedActions(['login']);
     }
 
-    public function isAuthorized($user)
-    {
-        //NO FUNCIONA ESTA MIERDA
-        // Admin can access every action
-        if (isset($user['role']) && $user['role'] === 'medico') {
-            return true;
+
+
+
+
+    
+
+    // Check if image file is a actual image or fake image
+    /* if(isset($_POST["submit"])) {
+        // $target_dir = "\img\usuarios";
+        $target_dir = "/img/usuarios";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+
+        if($check !== false) {
+        echo "El archivo es una imagen - " . $check["mime"] . ".";
+        $uploadOk = 1;
+        } else {
+        echo "El archivo no es una imagen.";
+        $uploadOk = 0;
+        }
+    
+
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            echo "Lo siento, el archivo seleccionado ya existe.";
+            $uploadOk = 0;
         }
 
-        // Default deny
-        return false;
+        // Check file size
+        if ($_FILES["fileToUpload"]["size"] > 1000000) {
+            echo "Lo siento, su foto pesa demasiado.";
+            $uploadOk = 0;
+        }
+
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+            // echo "Lo siento, solo se permiten archivos JPG, JPEG & PNG.";
+            $uploadOk = 0;
+        }
+        var_dump($imageFileType);
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+        } else {
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+            } else {
+            echo "Sorry, there was an error uploading your file.";
+            }
+        }
+
     }
+
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="submit" value="Upload" id="submit" name="submit">
+    </form>
+ */
+
+
 }

@@ -17,9 +17,17 @@ class PastillasController extends AppController
      */
     public function index()
     {
-        $pastillas = $this->paginate($this->Pastillas);
-
-        $this->set(compact('pastillas'));
+        $session = $this->request->getSession();
+        if ($session->read('Auth.role') !== 'medico') {  
+            $redirect = $this->request->getQuery('redirect', [
+                'controller' => 'Calendar',
+                'action' => 'index',
+            ]);
+            return $this->redirect($redirect);
+        }else{
+            $pastillas = $this->paginate($this->Pastillas);
+            $this->set(compact('pastillas'));
+        }
     }
 
     /**

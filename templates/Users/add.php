@@ -34,6 +34,9 @@
                     echo $this->Form->file('imagen');
                 ?>
                 <br><button><?= $this->Form->file('imagen') ?></button>
+                <?php
+                    // echo $this->Form->create($entity, ['type' => 'file']); // Dont miss this out or no files will upload
+                ?>
             </fieldset>
             <?= $this->Form->button(__('Crear')) ?>
             <?= $this->Form->end() ?>

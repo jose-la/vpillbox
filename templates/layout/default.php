@@ -18,62 +18,59 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta(
-            'favicon.ico',
-            '/favicon.ico.png',
-            ['type' => 'icon']
-        );
-    ?>
+    <head>
+        <?= $this->Html->charset() ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+            <?= $cakeDescription ?>:
+            <?= $this->fetch('title') ?>
+        </title>
+        <?= $this->Html->meta(
+                'favicon.ico',
+                '/favicon.ico.png',
+                ['type' => 'icon']
+            );
+        ?>
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
+        <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
 
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
-</head>
-<body>
-    <nav class="top-nav">
-        <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>">V<span>Pillbox</span></a>
-        </div>
-        <div class="top-nav-links">
-            <?php
-                // var_dump($_SESSION);
-                if ($this->Identity->isLoggedIn())
-                {
-                    echo $this->Html->link(__('Usuarios'), ['controller' => 'Users'], ['action' => 'index']);
-                    echo $this->Html->link(__('Fármacos'), ['controller' => 'Pastillas'], ['action' => 'index']);
-                }
-                
-                // if (isset($user['role']) && $user['role'] === 'medico') {
-                //     return true;
-                // }
-                
-                // echo $this->Html->link(__('Usuarios'), ['controller' => 'Users'], ['action' => 'index']);
-                // echo $this->Html->link(__('Fármacos'), ['controller' => 'Pastillas'], ['action' => 'index']);
-            ?>
-            <!-- <a rel="noopener" href="../Users">Usuarios</a> -->
-            <!-- <a rel="noopener" href="../Pastillas">Fármacos</a> -->
-            <!-- <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/">Documentation</a> -->
-            <!-- <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a> -->
-        </div>
-    </nav>
-    <main class="main">
-        <div class="container">
-            <?= $this->Flash->render() ?>
-            <?= $this->fetch('content') ?>
-        </div>
-    </main>
-    <footer>
-    </footer>
-</body>
+        <?= $this->fetch('meta') ?>
+        <?= $this->fetch('css') ?>
+        <?= $this->fetch('script') ?>
+    </head>
+    <body>
+        <nav class="top-nav">
+            <div class="top-nav-title">
+                <a href="<?= $this->Url->build('/') ?>">V<span>Pillbox</span></a>
+            </div>
+            <div class="top-nav-links">
+                <?php                
+                    $session = $this->request->getSession();
+                    if ($session->read('Auth.role') === 'medico') {
+                        // echo $this->Html->link(__('Pacientes'), ['controller' => 'Users'], ['action' => 'pacientes']);
+                        echo $this->Html->link(__('Usuarios'), ['controller' => 'Users'], ['action' => 'index']);
+                        echo $this->Html->link(__('Fármacos'), ['controller' => 'Pastillas'], ['action' => 'index']);
+                    }
+                    
+                    // if ($this->Identity->isLoggedIn())
+                    // {
+                    //     echo $this->Html->link(__('Usuarios'), ['controller' => 'Users'], ['action' => 'index']);
+                    //     echo $this->Html->link(__('Fármacos'), ['controller' => 'Pastillas'], ['action' => 'index']);
+                    // }
+                ?>
+                <!-- <a rel="noopener" href="../Users">Usuarios</a> -->
+                <!-- <a rel="noopener" href="../Pastillas">Fármacos</a> -->
+                <!-- <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/">Documentation</a> -->
+                <!-- <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a> -->
+            </div>
+        </nav>
+        <main class="main">
+            <div class="container">
+                <?= $this->Flash->render() ?>
+                <?= $this->fetch('content') ?>
+            </div>
+        </main>
+    </body>
 </html>

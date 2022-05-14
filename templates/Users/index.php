@@ -10,7 +10,7 @@
     }
 </style>
 <div class="users index content">
-    <?= $this->Html->link(__('Añadir Usuario'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?= $this->Html->link(__('Nuevo Usuario'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Usuarios') ?></h3>
     <div class="table-responsive">
         <table>
