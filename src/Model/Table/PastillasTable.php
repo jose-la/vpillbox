@@ -51,11 +51,11 @@ class PastillasTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            // ->integer('id_pastillas')
-            ->allowEmptyString('id_pastillas', null, 'create')
-            ->scalar('id_pastillas')
-            ->maxLength('id_pastillas', 255)
-            ->requirePresence('id_pastillas', 'create');
+            ->integer('id_pastillas')
+            ->allowEmptyString('id_pastillas', null, 'create');
+            // ->scalar('id_pastillas')
+            // ->maxLength('id_pastillas', 255)
+            // ->requirePresence('id_pastillas', 'create');
             // ->notEmptyString('id_pastillas');
 
         $validator
