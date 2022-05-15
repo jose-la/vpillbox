@@ -242,7 +242,7 @@ class UsersController extends AppController
 
         // display error if user submitted and authentication failed
         if ($this->request->is('post') && !$result->isValid()) {
-            $this->Flash->error(__('Usuario o contraseña inválida'));
+            $this->Flash->error(__('Numero de SS o contraseña inválida'));
         }
     }
 

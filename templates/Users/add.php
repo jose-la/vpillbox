@@ -23,12 +23,20 @@
                     echo $this->Form->control('nombre');
                     echo $this->Form->control('apellidos');
                     echo $this->Form->control('password');
+                    echo "<label>Número Seguridad Social</label>";
+                    echo $this->Form->control('num_ss');
                     echo $this->Form->control('telefono', ['label' => 'Teléfono']);
                     echo "<label>Role</label>";
                     echo $this->Form->select('role', [
                         'usuario' => 'Usuario',
                         'medico' => 'Médico',
                     ]);
+                    echo "<label>Médico Asignado</label>";
+                    echo $this->Form->select('medico_asignado', [
+                        'paco' => 'Paco',
+                        'manolo' => 'Manolo',
+                    ]);
+
                     // echo $this->Form->control('imagen',array('placeholder' => '\img\usuarios\[id]_[primera_letra_nombre][apellido].jpg'));
                     echo "<label>Imagen</label>";
                     echo $this->Form->file('imagen');

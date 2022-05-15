@@ -36,12 +36,20 @@
                     <td><?= h($user->password) ?></td>
                 </tr>
                 <tr>
+                    <th><?= __('Número Seguridad Social') ?></th>
+                    <td><?= h($user->num_ss) ?></td>
+                </tr>
+                <tr>
                     <th><?= __('Telefono') ?></th>
                     <td><?= h($user->telefono) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Role') ?></th>
                     <td><?= h($user->role) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Médico asignado') ?></th>
+                    <td><?= h($user->medico_asignado) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Created') ?></th>

@@ -26,11 +26,18 @@
                     echo $this->Form->control('nombre');
                     echo $this->Form->control('apellidos');
                     echo $this->Form->control('password');
-                    echo $this->Form->control('telefono');
+                    echo "<label>Número Seguridad Social</label>";
+                    echo $this->Form->text('num_ss', array( 'type' => 'number' ));
+                    echo $this->Form->control('telefono', ['label' => 'Teléfono']);
                     echo "<label>Role</label>";
                     echo $this->Form->select('role', [
                         'usuario' => 'Usuario',
                         'medico' => 'Medico',
+                    ]);
+                    echo "<label>Médico Asignado</label>";
+                    echo $this->Form->select('medico_asignado', [
+                        'paco' => 'Paco',
+                        'manolo' => 'Manolo',
                     ]);
 
                     echo "<label>Imagen</label>";

@@ -123,20 +123,20 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             'queryParam' => 'redirect',
         ]);
 
-        // Load identifiers, ensure we check nombre and password fields
+        // Load identifiers, ensure we check num_ss and password fields
         $authenticationService->loadIdentifier('Authentication.Password', [
             'fields' => [
-                'username' => 'nombre',
+                'username' => 'num_ss',
                 'password' => 'password',
             ]
         ]);
 
         // Load the authenticators, you want session first
         $authenticationService->loadAuthenticator('Authentication.Session');
-        // Configure form data check to pick nombre and password
+        // Configure form data check to pick num_ss and password
         $authenticationService->loadAuthenticator('Authentication.Form', [
             'fields' => [
-                'username' => 'nombre',
+                'username' => 'num_ss',
                 'password' => 'password',
             ],
             'loginUrl' => Router::url('/users/login'),

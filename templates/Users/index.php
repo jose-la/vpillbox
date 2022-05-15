@@ -22,6 +22,7 @@
                     <th><?= $this->Paginator->sort('apellidos') ?></th>
                     <th><?= $this->Paginator->sort('telefono') ?></th>
                     <th><?= $this->Paginator->sort('role') ?></th>
+                    <th><?= $this->Paginator->sort('medico_asignado') ?></th>
                     <th><?= $this->Paginator->sort('created') ?></th>
                     <th><?= $this->Paginator->sort('modified') ?></th>
                     <th class="actions"><?= __('Acciones') ?></th>
@@ -36,6 +37,7 @@
                     <td><?= h($user->apellidos) ?></td>
                     <td><?= h($user->telefono) ?></td>
                     <td><?= h($user->role) ?></td>
+                    <td><?= h($user->medico_asignado) ?></td>
                     <td><?= h($user->created) ?></td>
                     <td><?= h($user->modified) ?></td>
                     <td class="actions">

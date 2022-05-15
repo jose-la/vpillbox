@@ -12,7 +12,7 @@
     <h3>Log In</h3>
     <?= $this->Form->create() ?>
     <fieldset>
-        <?= $this->Form->control('nombre', ['required' => true]) ?>
+        <?= $this->Form->control('num_ss', ['required' => true]) ?>
         <?= $this->Form->control('password', ['required' => true]) ?>
     </fieldset>
     <?= $this->Form->submit(__('Login')); ?>

@@ -98,6 +98,13 @@ class UsersTable extends Table
             ->notEmptyString('password');
 
         $validator
+            ->integer('num_ss')
+            ->maxLength('num_ss', 12)
+            ->minLength('num_ss', 12)
+            ->requirePresence('num_ss', 'create')
+            ->notEmptyString('num_ss');
+
+        $validator
             ->scalar('telefono')
             ->maxLength('telefono', 255)
             ->requirePresence('telefono', 'create')
@@ -108,6 +115,12 @@ class UsersTable extends Table
             ->maxLength('role', 255)
             ->requirePresence('role', 'create')
             ->notEmptyString('role');
+
+        $validator
+            ->scalar('medico_asignado')
+            ->maxLength('medico_asignado', 255)
+            ->requirePresence('medico_asignado', 'create')
+            ->notEmptyString('medico_asignado');
 
         $validator
             ->scalar('imagen')
