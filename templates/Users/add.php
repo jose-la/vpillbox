@@ -7,6 +7,8 @@
  * @var \App\Model\Entity\Pastilla $pastilla
  */
 ?>
+You have selected <?= $prueba ?> icing for the cake.
+You have selected <?= h($medicoAsignado) ?> icing for the cake.
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -24,7 +26,7 @@
                     echo $this->Form->control('apellidos');
                     echo $this->Form->control('password');
                     echo "<label>Número Seguridad Social</label>";
-                    echo $this->Form->control('num_ss');
+                    echo $this->Form->text('num_ss', array( 'type' => 'number' ));
                     echo $this->Form->control('telefono', ['label' => 'Teléfono']);
                     echo "<label>Role</label>";
                     echo $this->Form->select('role', [
@@ -33,15 +35,13 @@
                     ]);
                     echo "<label>Médico Asignado</label>";
                     echo $this->Form->select('medico_asignado', [
-                        'paco' => 'Paco',
-                        'manolo' => 'Manolo',
+                        h($medicoAsignado->id) => h($medicoAsignado->nombre) . " " . h($medicoAsignado->apellidos)
                     ]);
 
                     // echo $this->Form->control('imagen',array('placeholder' => '\img\usuarios\[id]_[primera_letra_nombre][apellido].jpg'));
                     echo "<label>Imagen</label>";
                     echo $this->Form->file('imagen');
                 ?>
-                <br><button><?= $this->Form->file('imagen') ?></button>
                 <?php
                     // echo $this->Form->create($entity, ['type' => 'file']); // Dont miss this out or no files will upload
                 ?>

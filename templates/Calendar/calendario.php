@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
 echo $this->Html->css('calendario');
 echo $this->Html->script('calendario');
@@ -14,7 +15,27 @@ echo $this->Html->script('calendario');
     </head>
     <body>
         <?= $this->Html->link(__('Log Out'), ['action' => 'logout'], ['class' => 'button float-right']) ?>
+        <?php
+            $arrayPacientes = [];
+            foreach ($paciente as $value) {
+                if ($value->id == $idPaciente) {
+                    $arrayPacientes += [h($value->id) => h($value->nombre) . " " . h($value->apellidos)];
+                }
+            }
+        ?>
         <h3>Bienvenid@ <strong><?= $this->Identity->get('nombre'); ?> <?= $this->Identity->get('apellidos'); ?></strong></h3>
+        <?php
+            $session = $this->request->getSession();
+            if ($session->read('Auth.role') === 'medico') {
+                echo $this->Html->link(__('Cambiar Paciente'), ['controller' => 'Users', 'action' => 'pacientes'], ['class' => 'button float-right']);
+            }
+        ?>
+
+        <?php
+            foreach ($arrayPacientes as $pacientes) {
+                echo "<h3><strong>Usuario: </strong>" . h($pacientes) . "</h3>";
+            }
+        ?>
         <div id="containerAgregarFarmaco">
             <form>
                 <div id="parteArribaFormulario">

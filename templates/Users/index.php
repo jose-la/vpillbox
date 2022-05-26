@@ -11,7 +11,7 @@
 </style>
 <div class="users index content">
     <?= $this->Html->link(__('Nuevo Usuario'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Usuarios') ?></h3>
+    <h2><?= __('Usuarios') ?></h2>
     <div class="table-responsive">
         <table>
             <thead>

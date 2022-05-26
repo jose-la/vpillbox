@@ -46,7 +46,7 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
-
+        
         $this->set(compact('user'));
     }
 
@@ -58,10 +58,30 @@ class UsersController extends AppController
     public function add()
     {
         $user = $this->Users->newEmptyEntity();
+
+        $users = $this->getTableLocator()->get('Users');
+        $query = $users->find();
+        foreach ($query->all() as $usuario) {
+            if ($usuario->role === "medico") {
+                $this->set('medicoAsignado', $usuario);
+            }
+        }
+
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('Usuario creado.'));
+            
+            $check = false;
+            foreach ($query->all() as $usuario) {
+                if ($usuario->num_ss === $user->num_ss) {
+                    $check = true;
+                    break;
+                }
+            }
+            
+            if ($check == true) {
+                $this->Flash->error(__("Este Numero de la SS ya existe"));
+            }elseif ($this->Users->save($user)) {
+                $this->Flash->success(__('Usuario editado.'));
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -82,10 +102,39 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
+
+        $users = $this->getTableLocator()->get('Users');
+        $query = $users->find();
+        $medico = [];
+        foreach ($query->all() as $usuario) {
+            if ($usuario->role === "medico") {
+                array_push($medico, $usuario);
+                $this->set('medicoAsignado', $medico);
+            }
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
 
+            $check = false;
+            foreach ($query->all() as $usuario) {
+                if ($usuario->num_ss === $user->num_ss) {
+                    $check = true;
+                    break;
+                }
+            }
             
+            if ($check == true) {
+                $this->Flash->error(__("Este Numero de la SS ya existe"));
+            }elseif ($this->Users->save($user)) {
+                $this->Flash->success(__('Usuario editado.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+
+            $this->Flash->error(__('El usuario no se ha podido editar. Inténtelo más tarde, por favor.'));
+            
+
             // Check if image file is a actual image or fake image
             /* $check = getimagesize($this->request->getData('imagen'));
             echo $check;
@@ -128,12 +177,13 @@ class UsersController extends AppController
             } */
 
 
-            $target_dir = "/img/usuarios/";
-            $target_file = $target_dir . basename($this->request->getData('imagen'));
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-            echo $target_file . "<br>";
-            echo $imageFileType . "<br>";
+            // $target_dir = "/img/usuarios/";
+            // $target_file = $target_dir . basename($this->request->getData('imagen'));
+            // $uploadOk = 1;
+            // $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+            // echo $target_file . "<br>";
+            // echo $imageFileType . "<br>";
 
             // echo "-----------------------------------------------------------------------------------------------------------";
             // echo $this->Form->create($document, ['enctype' => 'multipart/form-data']);
@@ -159,14 +209,6 @@ class UsersController extends AppController
             //     // Existing files with the same name will be replaced.
             //     $fileobject->moveTo($destination);
             // }
-
-
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('Usuario editado.'));
-
-                // return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('El usuario no se ha podido editar. Inténtelo más tarde, por favor.'));
         }
         $this->set(compact('user'));
     }
@@ -212,43 +254,43 @@ class UsersController extends AppController
     {
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
-        // regardless of POST or GET, redirect if user is logged in
         if ($result->isValid()) {
-            // redirect to /articles after login success
-            $redirect = $this->request->getQuery('redirect', [
-                'controller' => 'Users',
-                'action' => 'pacientes',
-            ]);
-            return $this->redirect($redirect);
-            // HACER EXCEPCION SI NO ES MEDICO
+            $users = $this->getTableLocator()->get('Users');
+            $query = $users->find("all", array('conditions'=>array('Users.num_ss'=>$_POST['num_ss'])));
+            foreach ($query->all() as $usuario) {
+                if ($usuario->role === 'medico') {
+                    $redirect = $this->request->getQuery('redirect', [
+                        'controller' => 'Users',
+                        'action' => 'pacientes'
+                    ]);
+                    return $this->redirect($redirect);
+                }else{
+                    $redirect = $this->request->getQuery('redirect', [
+                        'controller' => 'Calendar',
+                        'action' => 'index',
+                    ]);
+                    return $this->redirect($redirect);
+                }
+            }
         }
-
-        /* if ($result->isValid()) {
-            $session = $this->request->getSession();
-            if ($session->read('Auth.role') === 'medico') {  
-                $redirect = $this->request->getQuery('redirect', [
-                    'controller' => 'Users',
-                    'action' => 'pacientes',
-                ]);
-            }
-            elseif ($session->read('Auth.role') !== 'medico') {  
-                $redirect = $this->request->getQuery('redirect', [
-                    'controller' => 'Calendar',
-                    'action' => 'index',
-                ]);
-            }
-            return $this->redirect($redirect);
-        } */
-
-        // display error if user submitted and authentication failed
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error(__('Numero de SS o contraseña inválida'));
         }
     }
 
-    public function pacientes() {
-        echo "ESTO ES LA VIEW DE LOS PACIENTES.";
+    public function pacientes($id = null) {
+        $users = $this->paginate($this->Users);
+        $this->set(compact('users'));
     }
+
+    /* public function view($id = null)
+    {
+        $user = $this->Users->get($id, [
+            'contain' => [],
+        ]);
+        
+        $this->set(compact('user'));
+    } */
 
     public function logout()
     {
@@ -267,7 +309,6 @@ class UsersController extends AppController
         // the infinite redirect loop issue
         $this->Authentication->addUnauthenticatedActions(['login']);
     }
-
 
 
 

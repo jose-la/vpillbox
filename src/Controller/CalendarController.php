@@ -31,9 +31,16 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class CalendarController extends AppController
 {
-    public function index()
+    public function index($id = null)
     {
-        // echo "index";
+        $this->set('idPaciente', $id);
+        $users = $this->getTableLocator()->get('Users');
+        $query = $users->find();
+        $pacientes = [];
+        foreach ($query->all() as $usuario) {
+            array_push($pacientes, $usuario);
+            $this->set('paciente', $pacientes);
+        }
     }
 
     public function view($id = null)

@@ -35,11 +35,12 @@
                         'medico' => 'Medico',
                     ]);
                     echo "<label>Médico Asignado</label>";
-                    echo $this->Form->select('medico_asignado', [
-                        'paco' => 'Paco',
-                        'manolo' => 'Manolo',
-                    ]);
-
+                    $arrayMedico = [];
+                    foreach ($medicoAsignado as $medico) {
+                        $arrayMedico += [h($medico->id) => h($medico->nombre) . " " . h($medico->apellidos)];
+                    }
+                    echo $this->Form->select('medico_asignado', $arrayMedico); 
+                    
                     echo "<label>Imagen</label>";
                     echo $this->Form->file('imagen');
 
@@ -62,9 +63,6 @@
 
                     // // Existing files with the same name will be replaced.
                     // $fileobject->moveTo($destination);
-
-
-                    
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Editar')) ?>
