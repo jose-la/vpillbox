@@ -35,7 +35,9 @@ echo $this->Html->script('calendario');
             foreach ($arrayPacientes as $pacientes) {
                 echo "<h3><strong>Usuario: </strong>" . h($pacientes) . "</h3>";
             }
+            echo $this->Html->link(__('Ver Asignaciones'), ['controller' => 'Asignacion', 'action' => 'index'], ['class' => 'button']);
         ?>
+        <?= $this->Html->link(__('Nueva Asignacion'), ['controller' => 'Asignacion', 'action' => 'add', $idPaciente], ['class' => 'button float-right']) ?>
         <div id="containerAgregarFarmaco">
             <form>
                 <div id="parteArribaFormulario">
@@ -116,7 +118,56 @@ echo $this->Html->script('calendario');
                 </div>
             </form>
         </div>
-        
+
+        <style>
+            #asignacion {
+                background-color: #d33c43;
+                width: 180px;
+                height: 150px;
+                text-align:center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            #datos1 {
+                background-color: white;
+                width: auto;
+                height: auto;
+            }
+            #datos2 {
+                background-color: white;
+                margin-top: 10px;
+            }
+        </style>
+        <?php
+            foreach ($asignaciones as $asignacion) {
+                if ($idPaciente == $asignacion->id_user) {
+                
+        ?>
+        <div id="asignacion">
+            <div>
+                <div id="datos1">
+                    <?php
+                        foreach ($farmacos as $farmaco) {
+                            if ($farmaco->id_pastillas == $asignacion->id_farmacos) {
+                                echo h($farmaco->marca) . ", " . h($farmaco->peso) . "<br>";
+                                
+                    ?>
+                </div>
+                <div id="datos2">
+                    <?php
+                                echo "Color: " . h($farmaco->color) . "<br>";
+                            }
+                        }
+                    ?>
+                </div>
+            </div>
+        </div>
+        <?php
+                }
+            }
+        ?>
+        <br>
         <div id="principal">
             <!-- <input type="button" style="margin-bottom: 30px;" value="Agregar Fármaco" onclick="agregarFarmaco()"/> -->
             <div style="display: flex;" id="conjunto">

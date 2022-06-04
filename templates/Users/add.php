@@ -7,8 +7,6 @@
  * @var \App\Model\Entity\Pastilla $pastilla
  */
 ?>
-You have selected <?= $prueba ?> icing for the cake.
-You have selected <?= h($medicoAsignado) ?> icing for the cake.
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -34,9 +32,11 @@ You have selected <?= h($medicoAsignado) ?> icing for the cake.
                         'medico' => 'Médico',
                     ]);
                     echo "<label>Médico Asignado</label>";
-                    echo $this->Form->select('medico_asignado', [
-                        h($medicoAsignado->id) => h($medicoAsignado->nombre) . " " . h($medicoAsignado->apellidos)
-                    ]);
+                    $arrayMedico = [];
+                    foreach ($medicoAsignado as $medico) {
+                        $arrayMedico += [h($medico->id) => h($medico->nombre) . " " . h($medico->apellidos)];
+                    }
+                    echo $this->Form->select('medico_asignado', $arrayMedico); 
 
                     // echo $this->Form->control('imagen',array('placeholder' => '\img\usuarios\[id]_[primera_letra_nombre][apellido].jpg'));
                     echo "<label>Imagen</label>";

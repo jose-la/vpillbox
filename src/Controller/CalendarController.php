@@ -34,12 +34,28 @@ class CalendarController extends AppController
     public function index($id = null)
     {
         $this->set('idPaciente', $id);
-        $users = $this->getTableLocator()->get('Users');
-        $query = $users->find();
+        $queryUsers = $this->getTableLocator()->get('Users');
+        $query = $queryUsers->find();
         $pacientes = [];
         foreach ($query->all() as $usuario) {
             array_push($pacientes, $usuario);
             $this->set('paciente', $pacientes);
+        }
+
+        $queryAsignacion = $this->getTableLocator()->get('Asignacion');
+        $query2 = $queryAsignacion->find();
+        $arrayAsignacion = [];
+        foreach ($query2->all() as $asignacion) {
+            array_push($arrayAsignacion, $asignacion);
+            $this->set('asignaciones', $arrayAsignacion);
+        }
+
+        $queryFarmacos = $this->getTableLocator()->get('Pastillas');
+        $query3 = $queryFarmacos->find();
+        $farmacos = [];
+        foreach ($query3->all() as $farmaco) {
+            array_push($farmacos, $farmaco);
+            $this->set('farmacos', $farmacos);
         }
     }
 

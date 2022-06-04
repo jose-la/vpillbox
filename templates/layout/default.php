@@ -49,9 +49,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <?php                
                     $session = $this->request->getSession();
                     if ($session->read('Auth.role') === 'medico') {
-                        // echo $this->Html->link(__('Pacientes'), ['controller' => 'Users'], ['action' => 'pacientes']);
-                        echo $this->Html->link(__('Usuarios'), ['controller' => 'Users'], ['action' => 'index']);
-                        echo $this->Html->link(__('Fármacos'), ['controller' => 'Pastillas'], ['action' => 'index']);
+                        echo $this->Html->link(__('Pacientes'), ['controller' => 'Users', 'action' => 'pacientes']);
+                        echo $this->Html->link(__('Usuarios'), ['controller' => 'Users', 'action' => 'index']);
+                        echo $this->Html->link(__('Fármacos'), ['controller' => 'Pastillas', 'action' => 'index']);
                     }
                     
                     // if ($this->Identity->isLoggedIn())

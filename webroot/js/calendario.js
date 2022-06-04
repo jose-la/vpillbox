@@ -1,5 +1,5 @@
 // function agregarFila() {
-window.onload = function(){
+/* window.onload = function(){
     var calendario = document.getElementById("calendario");
     var fila;
     var celda;
@@ -36,14 +36,14 @@ window.onload = function(){
         }
         horario.appendChild(fila2);
     }
-};
+}; */
 
-function agregarme() {
+/* function agregarme() {
     var containerAgregarFarmaco = document.getElementById("containerAgregarFarmaco");
     containerAgregarFarmaco.style.display="block";
     var contenedorPrincipal=document.getElementById("principal");
     contenedorPrincipal.style.filter="blur(4px)";
-}
+} */
 
 // function agregarFarmaco(celda) {
 //     // Esta funcion es para agregar el farmaco en el calendario cuando se clique en el boton agregar del contenedor de agregar
@@ -55,9 +55,10 @@ function agregarme() {
 // }
 
 
-function cerrarContainer() {
+/* function cerrarContainer() {
     var containerAgregarFarmaco = document.getElementById("containerAgregarFarmaco");
     containerAgregarFarmaco.style.display="none";
     var contenedorPrincipal=document.getElementById("principal");
     contenedorPrincipal.style.filter="none";
-}
+} */
+

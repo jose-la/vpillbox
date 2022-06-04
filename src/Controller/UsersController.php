@@ -58,12 +58,14 @@ class UsersController extends AppController
     public function add()
     {
         $user = $this->Users->newEmptyEntity();
-
+        
         $users = $this->getTableLocator()->get('Users');
         $query = $users->find();
+        $medico = [];
         foreach ($query->all() as $usuario) {
             if ($usuario->role === "medico") {
-                $this->set('medicoAsignado', $usuario);
+                array_push($medico, $usuario);
+                $this->set('medicoAsignado', $medico);
             }
         }
 
@@ -81,7 +83,7 @@ class UsersController extends AppController
             if ($check == true) {
                 $this->Flash->error(__("Este Numero de la SS ya existe"));
             }elseif ($this->Users->save($user)) {
-                $this->Flash->success(__('Usuario editado.'));
+                $this->Flash->success(__('Usuario creado.'));
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -115,6 +117,12 @@ class UsersController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+
+            $imagenTemp = $this->request->getData("imagen");
+            if ($imagenTemp) {
+                // HACER LO DE LA IMAGEN, REVISAR SI FUNCIONA SIN ESTO
+                echo "ok";
+            }
 
             $check = false;
             foreach ($query->all() as $usuario) {
