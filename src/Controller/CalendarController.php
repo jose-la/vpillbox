@@ -59,11 +59,6 @@ class CalendarController extends AppController
         }
     }
 
-    public function view($id = null)
-    {
-        print_r($id);
-    }
-
     public function logout()
     {
         $result = $this->Authentication->getResult();

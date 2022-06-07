@@ -1,0 +1,240 @@
+<div style="display: flex;" id="conjunto">
+                <div class="containerHorario">
+                    <table id="horario" style="float: left; width: 80px;" border="1">
+                        <tr>
+                            <th style="text-align: center;">Horas</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="containerCalendario table-responsive">
+                    <table id="calendario" style="float: right;" border="1">
+                        <tr>
+                            <th id='<?php $asignacion->dias == "l"?>' style="width: 100px; text-align: center;">Lunes</th>
+                            <th id="m" style="width: 100px; text-align: center;">Martes</th>
+                            <th id='<?php $asignacion->dias == "x"?>' style="width: 100px; text-align: center;">Miércoles</th>
+                            <th id="j" style="width: 100px; text-align: center;">Jueves</th>
+                            <th id="v" style="width: 100px; text-align: center;">Viernes</th>
+                            <th id="s" style="width: 100px; text-align: center;">Sábado</th>
+                            <th id="d" style="width: 100px; text-align: center;">Domingo</th>
+                        </tr>
+                        <?php
+                        // ASOCIAR LOS TH DE LOS DIAS DE ARRIBA CON LOS DIAS DE LA SEMANA DE LA BASE DE DATOS
+                            foreach ($asignaciones as $asignacion) {
+                                if ($idPaciente == $asignacion->id_user) {
+                                    for ($i=0; $i < $asignacion->tomas; $i++) {
+                                        if ($asignacion->dias == "l") {
+                                            echo "<tr><td>";      
+                        ?>
+                        <div id="asignacion">
+                            <div>
+                                <div id="datos1">
+                                    <?php
+                                        foreach ($farmacos as $farmaco) {
+                                            if ($farmaco->id_pastillas == $asignacion->id_farmacos) {
+                                                echo h($farmaco->marca) . ", " . h($farmaco->peso) . "<br>";
+                                    ?>
+                                </div>
+                                <div id="datos2">
+                                    <?php
+                                                echo "Color: " . h($farmaco->color) . " - " . $asignacion->dias . "<br>";
+                                            }
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                            echo "</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
+                        }elseif ($asignacion->dias == "m") {
+                            echo "<tr><td></td><td>";
+                        ?>
+                        <div id="asignacion">
+                            <div>
+                                <div id="datos1">
+                                    <?php
+                                        foreach ($farmacos as $farmaco) {
+                                            if ($farmaco->id_pastillas == $asignacion->id_farmacos) {
+                                                echo h($farmaco->marca) . ", " . h($farmaco->peso) . "<br>";
+                                    ?>
+                                </div>
+                                <div id="datos2">
+                                    <?php
+                                                echo "Color: " . h($farmaco->color) . " - " . $asignacion->dias . "<br>";
+                                            }
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                            echo "</td><td></td><td></td><td></td><td></td><td></td></tr>";
+                        }elseif ($asignacion->dias == "x") {
+                            echo "<tr><td></td><td></td><td>";
+                        ?>
+                        <div id="asignacion">
+                            <div>
+                                <div id="datos1">
+                                    <?php
+                                        foreach ($farmacos as $farmaco) {
+                                            if ($farmaco->id_pastillas == $asignacion->id_farmacos) {
+                                                echo h($farmaco->marca) . ", " . h($farmaco->peso) . "<br>";
+                                    ?>
+                                </div>
+                                <div id="datos2">
+                                    <?php
+                                                echo "Color: " . h($farmaco->color) . " - " . $asignacion->dias . "<br>";
+                                            }
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                            echo "</td><td></td><td></td><td></td><td></td></tr>";
+                        }elseif ($asignacion->dias == "j") {
+                            echo "<tr><td></td><td></td><td></td><td>";
+                        ?>
+                        <div id="asignacion">
+                            <div>
+                                <div id="datos1">
+                                    <?php
+                                        foreach ($farmacos as $farmaco) {
+                                            if ($farmaco->id_pastillas == $asignacion->id_farmacos) {
+                                                echo h($farmaco->marca) . ", " . h($farmaco->peso) . "<br>";
+                                    ?>
+                                </div>
+                                <div id="datos2">
+                                    <?php
+                                                echo "Color: " . h($farmaco->color) . " - " . $asignacion->dias . "<br>";
+                                            }
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php    
+                            echo "</td><td></td><td></td><td></td></tr>";
+                        }elseif ($asignacion->dias == "v") {
+                            echo "<tr><td></td><td></td><td></td><td></td><td>";
+                        ?>
+                        <div id="asignacion">
+                            <div>
+                                <div id="datos1">
+                                    <?php
+                                        foreach ($farmacos as $farmaco) {
+                                            if ($farmaco->id_pastillas == $asignacion->id_farmacos) {
+                                                echo h($farmaco->marca) . ", " . h($farmaco->peso) . "<br>";
+                                    ?>
+                                </div>
+                                <div id="datos2">
+                                    <?php
+                                                echo "Color: " . h($farmaco->color) . " - " . $asignacion->dias . "<br>";
+                                            }
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                            echo "</td><td></td><td></td></tr>";
+                        }elseif ($asignacion->dias == "s") {
+                            echo "<tr><td></td><td></td><td></td><td></td><td></td><td>";
+                        ?>
+                        <div id="asignacion">
+                            <div>
+                                <div id="datos1">
+                                    <?php
+                                        foreach ($farmacos as $farmaco) {
+                                            if ($farmaco->id_pastillas == $asignacion->id_farmacos) {
+                                                echo h($farmaco->marca) . ", " . h($farmaco->peso) . "<br>";
+                                    ?>
+                                </div>
+                                <div id="datos2">
+                                    <?php
+                                                echo "Color: " . h($farmaco->color) . " - " . $asignacion->dias . "<br>";
+                                            }
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                            echo "</td><td></td></tr>";
+                        }elseif ($asignacion->dias == "d") {
+                            echo "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td>";
+                        ?>
+                        <div id="asignacion">
+                            <div>
+                                <div id="datos1">
+                                    <?php
+                                        foreach ($farmacos as $farmaco) {
+                                            if ($farmaco->id_pastillas == $asignacion->id_farmacos) {
+                                                echo h($farmaco->marca) . ", " . h($farmaco->peso) . "<br>";
+                                    ?>
+                                </div>
+                                <div id="datos2">
+                                    <?php
+                                                echo "Color: " . h($farmaco->color) . " - " . $asignacion->dias . "<br>";
+                                            }
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                            echo "</td></tr>";
+                                    }
+                                }
+                            }
+                        }
+                        ?>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+
+
+
+#### BOTONES ####
+<?php
+            foreach ($asignaciones as $asignacion) {
+                if ($idPaciente == $asignacion->id_user) {
+                    for ($i=0; $i < $asignacion->tomas; $i++) { 
+        ?>
+        <button id="botonDatos">
+            <div>
+                <div>
+                    <p>
+                        <?php
+                            foreach ($farmacos as $farmaco) {
+                                if ($farmaco->id_pastillas == $asignacion->id_farmacos) {
+                                    echo h($farmaco->marca) . ", " . h($farmaco->peso) . "<br>";
+                        ?>
+                    </p>
+                </div>
+                <div>
+                    <?php
+                                echo "Color: " . h($farmaco->color) . "<br>";
+                            }
+                        }
+                    ?>
+                </div>
+            </div>
+        </button>
+        <?php
+                    }
+                }
+            }
+        ?>
+        <br>
+
+        <?php
+            foreach ($asignaciones as $asignacion) {
+                if ($idPaciente == $asignacion->id_user) {
+                    echo $asignacion;
+                }
+            }
+        ?>

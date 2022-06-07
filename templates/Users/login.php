@@ -12,8 +12,8 @@
     <h3>Log In</h3>
     <?= $this->Form->create() ?>
     <fieldset>
-        <?= $this->Form->control('num_ss', ['required' => true]) ?>
-        <?= $this->Form->control('password', ['required' => true]) ?>
+        <?= $this->Form->control('num_ss', ['required' => true, 'label' => 'Número Seguridad Social']) ?>
+        <?= $this->Form->control('password', ['required' => true, 'label' => 'Contraseña']) ?>
     </fieldset>
     <?= $this->Form->submit(__('Login')); ?>
     <?= $this->Form->end() ?>

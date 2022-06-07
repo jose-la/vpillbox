@@ -61,6 +61,7 @@ class UsersController extends AppController
         
         $users = $this->getTableLocator()->get('Users');
         $query = $users->find();
+        
         $medico = [];
         foreach ($query->all() as $usuario) {
             if ($usuario->role === "medico") {
@@ -276,6 +277,7 @@ class UsersController extends AppController
                     $redirect = $this->request->getQuery('redirect', [
                         'controller' => 'Calendar',
                         'action' => 'index',
+                        $usuario->id
                     ]);
                     return $this->redirect($redirect);
                 }
