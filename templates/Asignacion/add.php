@@ -18,9 +18,7 @@
                 <legend><?= __('Crear Asignación') ?></legend>
                 <?php
                     echo "<label>Usuario</label>";
-                    // HACER QUE SEA DISABLED, PARA QUE NO SE PUEDA MODIFICAR
-                    // echo $this->Form->text('id_user', ['value' => $idUsuario]);
-                    echo $this->Form->control('id_user', ['value' => $idUsuario]);
+                    echo $this->Form->text('id_user', ['value' => $idUsuario, 'disabled']);
 
                     echo "<label>Fármaco</label>";
                     $arrayFarmacos = [];
@@ -28,15 +26,16 @@
                         $arrayFarmacos += [h($farmaco->id_pastillas) => h($farmaco->marca) . ", " . h($farmaco->peso)];
                     }
                     echo $this->Form->select('id_farmacos', $arrayFarmacos);
+                    
                     echo "<label>Días</label>";
                     echo $this->Form->select('dias', [
-                        'l' => 'Lunes',
-                        'm' => 'Martes',
-                        'x' => 'Miércoles',
-                        'j' => 'Jueves',
-                        'v' => 'Viernes',
-                        's' => 'Sábado',
-                        'd' => 'Domingo'
+                        'lunes' => 'Lunes',
+                        'martes' => 'Martes',
+                        'miercoles' => 'Miércoles',
+                        'jueves' => 'Jueves',
+                        'viernes' => 'Viernes',
+                        'sabado' => 'Sábado',
+                        'domingo' => 'Domingo'
                     ]);
                     echo "<label>Tomas al Día</label>";
                     echo $this->Form->select('tomas', [
@@ -51,7 +50,9 @@
             </fieldset>
             <?= $this->Form->button(__('Asignar')) ?>
             <?= $this->Form->end() ?>
+            <?= $this->Html->link(__('Tutorial'), ['controller' => 'Tutorial', 'action' => 'tutorialaddasignacion'], ['class' => 'button  float-right']) ?>
             <?php echo $this->Form->button('Volver', ['onclick' =>'history.back ()', 'type' =>'button']); ?>
         </div>
     </div>
 </div>
+<br><br>

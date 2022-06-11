@@ -42,7 +42,8 @@
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Editar')) ?>
+            <?= $this->Html->link(__('Tutorial'), ['controller' => 'Tutorial', 'action' => 'tutorialeditpastillas'], ['class' => 'button  float-right']) ?>
             <?= $this->Form->end() ?>
-        </div>
+        </div><br>
     </div>
 </div>

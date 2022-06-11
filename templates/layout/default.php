@@ -43,7 +43,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <body>
         <nav class="top-nav">
             <div class="top-nav-title">
-                <a href="<?= $this->Url->build('/') ?>">V<span>Pillbox</span></a>
+                <a>V<span>Pillbox</span></a>
+                <!-- href="<?= $this->Url->build('/') ?>" -->
             </div>
             <div class="top-nav-links">
                 <?php                

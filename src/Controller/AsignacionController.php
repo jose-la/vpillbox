@@ -65,17 +65,21 @@ class AsignacionController extends AppController
 
             $check = false;
             foreach ($query->all() as $asignacion2) {
-                if ($asignacion2->id_user === $asignacion->id_user && $asignacion2->id_farmacos === $asignacion->id_farmacos && $asignacion2->dias === $asignacion->dias) {
+                if ($asignacion2->id_user === $asignacion->id_user && $asignacion2->id_farmacos === $asignacion->id_farmacos && $asignacion2->dias === $asignacion->dias && $asignacion2->tomas === $asignacion->tomas) {
                     $check = true;
                     break;
                 }
             }
 
-            if ($check == true) {
-                $this->Flash->error(__('La asignación no se ha podido crear. Por favor, inténtelo otra vez.'));
-            }elseif ($this->Asignacion->save($asignacion)) {
-                $this->Flash->success(__('Asignación creada.'));
-                return $this->redirect(['controller' => 'Calendar', 'action' => 'index', $id]);
+            if ($asignacion->tomas == "") {
+                $this->Flash->error(__('Debe introducir un número de tomas al día, gracias.'));
+            }else{       
+                if ($check == true) {
+                    $this->Flash->error(__('La asignación no se ha podido crear. Por favor, inténtelo otra vez.'));
+                }elseif ($this->Asignacion->save($asignacion)) {
+                    $this->Flash->success(__('Asignación creada.'));
+                    return $this->redirect(['controller' => 'Calendar', 'action' => 'index', $id]);
+                }
             }
         }
         $this->set(compact('asignacion'));
@@ -101,15 +105,31 @@ class AsignacionController extends AppController
             array_push($arrayFarmacos, $farmaco);
             $this->set('farmacosCompletos', $arrayFarmacos);
         }
+
+        $asignaciones = $this->getTableLocator()->get('Asignacion');
+        $query = $asignaciones->find();
         
         if ($this->request->is(['patch', 'post', 'put'])) {
             $asignacion = $this->Asignacion->patchEntity($asignacion, $this->request->getData());
-            if ($this->Asignacion->save($asignacion)) {
-                $this->Flash->success(__('Asignación editada.'));
 
-                return $this->redirect(['controller' => 'Calendar', 'action' => 'index', $asignacion->id_user]);
+            $check = false;
+            foreach ($query->all() as $asignacion2) {
+                if ($asignacion2->id_user === $asignacion->id_user && $asignacion2->id_farmacos === $asignacion->id_farmacos && $asignacion2->dias === $asignacion->dias && $asignacion2->tomas === $asignacion->tomas) {
+                    $check = true;
+                    break;
+                }
             }
-            $this->Flash->error(__('No se ha podido editar la asignación. Por favor, inténtelo otra vez.'));
+
+            if ($asignacion->tomas == "") {
+                $this->Flash->error(__('Debe introducir un número de tomas al día, gracias.'));
+            }else{       
+                if ($check == true) {
+                    $this->Flash->error(__('No se ha podido editar la asignación. Por favor, inténtelo otra vez.'));
+                }elseif ($this->Asignacion->save($asignacion)) {
+                    $this->Flash->success(__('Asignación editada.'));
+                    return $this->redirect(['controller' => 'Calendar', 'action' => 'index', $asignacion->id_user]);
+                }
+            }
         }
         $this->set(compact('asignacion'));
     }

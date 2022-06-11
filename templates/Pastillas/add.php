@@ -36,7 +36,9 @@
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Añadir')) ?>
+            <?= $this->Html->link(__('Tutorial'), ['controller' => 'Tutorial', 'action' => 'tutorialaddpastillas'], ['class' => 'button  float-right']) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
 </div>
+<br><br>

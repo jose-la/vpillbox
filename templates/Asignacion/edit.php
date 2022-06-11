@@ -11,7 +11,7 @@
             <?= $this->Form->postLink(
                 __('Eliminar'),
                 ['action' => 'delete', $asignacion->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $asignacion->id), 'class' => 'side-nav-item']
+                ['confirm' => __('¿De verdad quiere borrar esta asignación {0}?', $asignacion->id), 'class' => 'side-nav-item']
             ) ?>
             <?= $this->Html->link(__('Listar Asignaciones'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
@@ -31,7 +31,16 @@
                     }
                     echo $this->Form->select('id_farmacos', $arrayFarmacos);
 
-                    echo $this->Form->control('dias');
+                    echo "<label>Días</label>";
+                    echo $this->Form->select('dias', [
+                        'lunes' => 'Lunes',
+                        'martes' => 'Martes',
+                        'miercoles' => 'Miércoles',
+                        'jueves' => 'Jueves',
+                        'viernes' => 'Viernes',
+                        'sabado' => 'Sábado',
+                        'domingo' => 'Domingo'
+                    ]);
                     echo "<label>Tomas al Día</label>";
                     echo $this->Form->select('tomas', [
                         '1' => '1',
@@ -39,16 +48,15 @@
                         '3' => '3',
                         '4' => '4',
                         '5' => '5',
-                        '6' => '6',
-                        '7' => '7',
-                        '8' => '8',
-                        '9' => '9'
+                        '6' => '6'
                     ]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Editar')) ?>
             <?= $this->Form->end() ?>
             <?php echo $this->Form->button('Volver', ['onclick' =>'history.back ()', 'type' =>'button']); ?>
+            <?= $this->Html->link(__('Tutorial'), ['controller' => 'Tutorial', 'action' => 'tutorialeditasignacion'], ['class' => 'button  float-right']) ?>
         </div>
     </div>
 </div>
+<br><br>

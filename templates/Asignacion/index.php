@@ -29,7 +29,7 @@
                     <td class="actions">
                         <?= $this->Html->link(__('Ver'), ['action' => 'view', $asignacion->id]) ?>
                         <?= $this->Html->link(__('Editar'), ['action' => 'edit', $asignacion->id]) ?>
-                        <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $asignacion->id], ['confirm' => __('¿Está seguro de que quiere eliminar la asignación?', $asignacion->id)]) ?>
+                        <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $asignacion->id], ['confirm' => __('¿De verdad quiere borrar esta asignación {0}?', $asignacion->id)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -37,4 +37,6 @@
         </table>
     </div><br>
     <?php echo $this->Form->button ('Volver', ['onclick' =>'history.back ()', 'type' =>'button']); ?>
+    <?= $this->Html->link(__('Tutorial'), ['controller' => 'Tutorial', 'action' => 'tutorialindexasignacion'], ['class' => 'button float-right']) ?>
 </div>
+<br><br>

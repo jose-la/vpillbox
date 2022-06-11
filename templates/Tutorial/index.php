@@ -1,1 +1,0 @@
-esto es el index del tutorial

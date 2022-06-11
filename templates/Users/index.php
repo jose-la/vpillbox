@@ -60,5 +60,5 @@
         </ul>
         <p><?= $this->Paginator->counter(__('Pagina {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{count}} totales')) ?></p>
     </div>
-    <?php echo $this->Form->button('Volver', ['onclick' =>'history.back ()', 'type' =>'button']); ?>
+    <?= $this->Html->link(__('Tutorial'), ['controller' => 'Tutorial', 'action' => 'tutorialindexusers'], ['class' => 'button']) ?>
 </div>

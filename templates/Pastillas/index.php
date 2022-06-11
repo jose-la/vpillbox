@@ -56,4 +56,6 @@
         </ul>
         <p><?= $this->Paginator->counter(__('Pagina {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{count}} totales')) ?></p>
     </div>
+    <?= $this->Html->link(__('Tutorial'), ['controller' => 'Tutorial', 'action' => 'tutorialindexpastillas'], ['class' => 'button']) ?>
 </div>
+<br><br>

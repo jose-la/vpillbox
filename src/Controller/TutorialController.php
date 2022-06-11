@@ -31,9 +31,18 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class TutorialController extends AppController
 {
-    public function index() {
-        echo "INDEX";
-    }
-
     public function tutorialcalendariomedicos() {}
+    public function tutorialcalendariopacientes() {}
+
+    public function tutorialindexusers() {}
+    public function tutorialeditusers() {}
+    public function tutorialaddusers() {}
+
+    public function tutorialindexasignacion() {}
+    public function tutorialeditasignacion() {}
+    public function tutorialaddasignacion() {}
+
+    public function tutorialindexpastillas() {}
+    public function tutorialeditpastillas() {}
+    public function tutorialaddpastillas() {}
 }

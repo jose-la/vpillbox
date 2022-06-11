@@ -60,6 +60,8 @@
                     <td><?= h($user->modified) ?></td>
                 </tr>
             </table>
-        </div>
+            <br>
+            <?php echo $this->Form->button('Volver', ['onclick' =>'history.back ()'], ['class' => 'button float-right']); ?>
+        </div><br>
     </div>
 </div>
